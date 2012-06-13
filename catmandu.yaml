@@ -1,0 +1,24 @@
+---
+store:
+ default:
+  package: Solr
+  options:
+    url: http://localhost:8983/solr/core0
+ 
+ core0:
+  package: Solr
+  options:
+    url: http://localhost:8983/solr/core0
+
+exporter:
+ default:
+  package: YAML
+  
+importer:
+ default:
+  package: JSON
+
+ marc:
+  package: MARC
+  options:
+    type: ALEPHSEQ

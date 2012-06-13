@@ -1,0 +1,66 @@
+# Fix marc data
+copy_field('_id','fSYS');
+
+marc_map('005','fDATE');
+marc_map('008/7-10','year');
+marc_map('008/7-8','period');
+marc_map('008/35-37','lang');
+marc_map('009','collection');
+marc_map('022','issn');
+
+replace_all('year','\^','0');
+replace_all('period','\^','0');
+replace_all('lang','\^','x');
+
+marc_map('100','author.$append');
+marc_map('111','author.$append');
+marc_map('130','author.$append');
+marc_map('170','author.$append');
+marc_map('700','author.$append');
+marc_map('710','author.$append');
+marc_map('720','author.$append');
+
+marc_map('210','title.$append');
+marc_map('222','title.$append');
+marc_map('240','title.$append');
+marc_map('241','title.$append');
+marc_map('245','title.$append');
+marc_map('246','title.$append');
+marc_map('249','title.$append');
+
+marc_map('245','title_sort');
+substring('title_sort',0,80);
+downcase('title_sort');
+
+marc_map('852a','holding.$append');
+marc_map('852b','department.$append');
+marc_map('852c','library.$append');
+marc_map('852c','faculty.$append'); 
+marc_map('852j','location.$append');
+marc_map('852x','faculty.$append');
+
+marc_map('920a','type');
+
+marc_map('STA','perm');
+marc_map('Z3082','created.$append');
+replace_all('created','(\S+) (\S+)','$2$1');
+
+copy_field('source','fulltext.$append');
+marc_map('856','fulltext.$append');
+join_field('fulltext',' ');
+matches('fulltext','bkt01|ebk01|ejn01|dnl01|gtb01|ecco01|hth01|Full text');
+
+marc_map('0..','all', -join=>' ');
+marc_map('1..','all', -join=>' ');
+marc_map('2..','all', -join=>' ');
+marc_map('3..','all', -join=>' ');
+marc_map('4..','all', -join=>' ');
+marc_map('5..','all', -join=>' ');
+marc_map('6..','all', -join=>' ');
+marc_map('7..','all', -join=>' ');
+marc_map('8..','all', -join=>' ');
+marc_map('9..','all', -join=>' ');
+
+marc_xml('fXML');
+
+remove_field('record');
