@@ -20,13 +20,16 @@ my $store    = undef;
 my $verbose  = undef;
 my $test     = undef;
 my $clear    = undef;
-my $fixes    = [qw{copy_field("_id","fSYS") meercat() marc_xml("fXML") remove_field('record')}];
+my $default_fixes = [q{copy_field("_id","fSYS")},q{meercat()},q{marc_xml("fXML")},q{remove_field('record')}];
+my $nofix    = undef;
+my $fixes    = [];
 my $count    = 0;
 my $start    = [gettimeofday];
 
 GetOptions("store=s" => \$store, 
            "importer=s" => \$importer, 
            "fix=s@" => \$fixes,
+           "nofix" => \$nofix,
            "test" => \$test,
            "clear" => \$clear,
            "source=s" => \$source,
@@ -34,7 +37,7 @@ GetOptions("store=s" => \$store,
 
 my $file = shift;
 
-unless (defined $store && -r $file) {
+unless (defined $store && defined $file && -r $file) {
     &usage;
     exit(1);
 }
@@ -63,15 +66,17 @@ sub exporter {
 sub importer {
     my $it = Catmandu->importer($importer,file=>$file)->tap(\&verbose);
 
+    my @work_fixes = ( @$default_fixes, @$fixes);
+    
     if ($source) {
-        unshift(@$fixes
+        unshift(@work_fixes
             , "add_field('source','$source')"
             , "copy_field('_id','$source')"
         );
     }
-    
-    if (@$fixes > 0) {
-        my $fixer = Catmandu::Fix->new(fixes=>$fixes);
+   
+    if (!defined $nofix && @work_fixes > 0) {
+        my $fixer = Catmandu::Fix->new(fixes=>\@work_fixes);
         $it = $fixer->fix($it);
     }
     
@@ -80,14 +85,17 @@ sub importer {
 
 sub usage {
     print STDERR <<EOF;
-usage: $0 [options] --store=<store_name> infile
+usage: $0 [options] infile
 
 options:
     -v  
+    --clear
     --test
+    --nofix
     --fix=<fix_file>
     --importer=<importer_name>
     --source=<source>
+    --store=<store_name>
 EOF
 }
 

@@ -3,12 +3,52 @@ store:
  default:
   package: Solr
   options:
-    url: http://localhost:8983/solr/core0
+    url: http://localhost:8983/solr/rug01
  
- core0:
+ rug01:
   package: Solr
   options:
-    url: http://localhost:8983/solr/core0
+    url: http://localhost:8983/solr/rug01
+
+ rug02:
+  package: Solr
+  options:
+    url: http://localhost:8983/solr/rug02
+
+ rug03:
+  package: Solr
+  options:
+    url: http://localhost:8983/solr/rug03
+
+ bkt01:
+  package: Solr
+  options:
+    url: http://localhost:8983/solr/bkt01
+
+ ser01:
+  package: Solr
+  options:
+    url: http://localhost:8983/solr/ser01
+
+ ejn01:
+  package: Solr
+  options:
+    url: http://localhost:8983/solr/ejn01
+
+ ebk01:
+  package: Solr
+  options:
+    url: http://localhost:8983/solr/ebk01
+
+ dbs01:
+  package: Solr
+  options:
+    url: http://localhost:8983/solr/dbs01
+
+ pug01:
+  package: Solr
+  options:
+    url: http://localhost:8983/solr/pug01
 
 exporter:
  default:
@@ -16,9 +56,12 @@ exporter:
   
 importer:
  default:
-  package: JSON
-
- marc:
   package: MARC
   options:
     type: ALEPHSEQ
+
+ marcxml:
+  package: MARC
+  options:
+    type: XML
+    id: '090'

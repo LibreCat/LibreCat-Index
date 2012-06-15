@@ -12,14 +12,14 @@ sub fix {
 
     $data = &fix_index($data);
     
-    #delete $data->{record};
-    
     $data;
 }
 
 sub fix_index {
     my $data = $_[0];
     my $record = $data->{record};
+    
+    my @fulltext = ($data->{source});
     
     for my $field (@$record) {
         my ($tag,$ind1,$ind2,@sf) = @$field;
@@ -30,10 +30,12 @@ sub fix_index {
             $data->{fDATE} = $val;
         }
         elsif ($tag eq '008') {
-            $val =~ s{\^}{0};
+            $val =~ s{\^}{0}g;
             $data->{year}   = substr($val,7,4);
             $data->{period} = substr($val,7,2);
             $data->{lang}   = substr($val,35,3);
+            delete $data->{year} if $data->{year} == 0;
+            delete $data->{period} if $data->{period} == 0;
         }
         elsif ($tag eq '009') {
             $data->{collection} = $val;
@@ -97,9 +99,21 @@ sub fix_index {
             push @{$data->{faculty}}    , $c->{x} if $c->{x};
             $val = join " ", values %$c;
         }
+        elsif ($tag eq '856') {
+            $val = join " ", data(undef,@sf);
+            push @fulltext , $val;
+        }
+        elsif ($tag eq '866' && $data->{source} eq 'ejn01') {
+            $val = join " ", data('a',@sf);
+            push @{$data->{holding}} , $val;
+        }
         elsif ($tag eq '920') {
             $val = join "", data('a',@sf);
             $data->{type} = $val;
+        }
+        elsif ($tag eq 'CAT') {
+            $val = join "", data('f',@sf);
+            $data->{cid} = $val if $val;
         }
         elsif ($tag eq 'STA') {
             $val = join "", data('a',@sf);
@@ -115,6 +129,9 @@ sub fix_index {
         else {
             $val = join " ", data(undef,@sf);
         }
+        
+        $data->{fulltext} = grep(/pug01|bkt01|ebk01|ejn01|dnl01|gtb01|ecco01|hth01|Full text/,@fulltext) ? 1 : 0;
+        
         push @{$data->{all}} , $val if $val;
     }
     

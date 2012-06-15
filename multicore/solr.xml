@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <solr persistent="false">
   <cores adminPath="/admin/cores">
-    <core name="core0" instanceDir="core0" />
+    <core name="rug01" instanceDir="rug01" />
+    <core name="rug02" instanceDir="rug02" />
+    <core name="rug03" instanceDir="rug03" />
+    <core name="bkt01" instanceDir="bkt01" />
+    <core name="ser01" instanceDir="ser01" />
+    <core name="ejn01" instanceDir="ejn01" />
+    <core name="ebk01" instanceDir="ebk01" />
+    <core name="dbs01" instanceDir="dbs01" />
+    <core name="pug01" instanceDir="pug01" />
+    <core name="proxy" instanceDir="proxy" />
   </cores>
 </solr>
