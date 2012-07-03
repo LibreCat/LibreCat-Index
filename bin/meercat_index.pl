@@ -15,12 +15,12 @@ use subs qw(store importer exporter);
 Catmandu->load;
 
 my $importer = 'default';
-my $source   = undef;
 my $store    = undef;
 my $verbose  = undef;
 my $test     = undef;
 my $clear    = undef;
-my $default_fixes = [q{copy_field("_id","fSYS")},q{meercat()},q{marc_xml("fXML")},q{remove_field('record')}];
+my $delete   = undef;
+my $default_fixes = Catmandu->config->{fixes}->{default};
 my $nofix    = undef;
 my $fixes    = [];
 my $count    = 0;
@@ -32,10 +32,14 @@ GetOptions("store=s" => \$store,
            "nofix" => \$nofix,
            "test" => \$test,
            "clear" => \$clear,
-           "source=s" => \$source,
+       "delete" => \$delete,
            "v" => \$verbose);
 
+my $source = shift;
 my $file = shift;
+
+$file  = '/dev/stdin' if $file eq '-';
+$store = $source unless defined $store;
 
 unless (defined $store && defined $file && -r $file) {
     &usage;
@@ -49,7 +53,17 @@ if ($test) {
 }
 else {
     store->delete_all if $clear;
-    store->add_many(importer);
+
+    if ($delete) {
+    importer->each(sub {
+       my $obj = $_[0];
+       store->delete($obj->{_id});
+    });
+    }
+    else {
+        store->add_many(importer);
+    }
+
     store->commit;
 }
 
@@ -66,7 +80,11 @@ sub exporter {
 sub importer {
     my $it = Catmandu->importer($importer,file=>$file)->tap(\&verbose);
 
-    my @work_fixes = ( @$default_fixes, @$fixes);
+    if (Catmandu->config->{fixes}->{$source}) {
+        $default_fixes = Catmandu->config->{fixes}->{$source};
+    }
+
+    my @work_fixes = ( @$default_fixes, @$fixes );
     
     if ($source) {
         unshift(@work_fixes
@@ -85,35 +103,49 @@ sub importer {
 
 sub usage {
     print STDERR <<EOF;
-usage: $0 [options] infile
+usage: $0 [options] source file
 
 options:
     -v  
     --clear
+    --delete
     --test
     --nofix
     --fix=<fix_file>
     --importer=<importer_name>
     --source=<source>
     --store=<store_name>
+
+example: 
+    # reindex rug01
+    $0 -v --clear rug01 /vol/indexes/incoming/rug01.export
+
+    # test the conversion of aleph sequential to solr indexable data
+    $0 --test rug01 /vol/indexes/incoming/rug01.export
+
+    # update rug01 records
+    $0 -v rug01 /vol/indexes/incoming/rug01.updates
+    
+    # delete rug01 records 
+    $0 -v --delete rug01 /vol/indexes/incoming/rug01.deletes
 EOF
 }
 
 sub start {
    return unless $verbose;
-   print STDERR "[start]\n";
+   print STDERR "(start $source $store)\n";
 }
 
 sub verbose {
    return unless $verbose;
    ++$count;
    my $speed = $count / tv_interval($start);
-   printf STDERR "doc(%d) : %f docs/sec\n" , $count, $speed if ($count % 100 == 0);
+   printf STDERR " (doc %d %f)\n" , $count, $speed if ($count % 100 == 0);
 }
 
 sub stats {
    return unless $verbose;
    my $speed = $count / tv_interval($start);
-   printf STDERR "doc(%d) : %f docs/sec\n" , $count, $speed;
-   printf STDERR "[done]\n";
+   printf STDERR " (doc %d %f)\n" , $count, $speed;
+   printf STDERR "(end $source)\n";
 }

@@ -65,3 +65,26 @@ importer:
   options:
     type: XML
     id: '090'
+
+fixes:
+  default:
+    - "copy_field('_id','fSYS')"
+    - "meercat()"
+    - "marc_xml('fXML')"
+    - "remove_field('record')"
+
+  ser01:
+    - "copy_field('_id','fSYS')"
+    - "meercat()"
+    - "marc_xml('fXML')"
+    - "remove_field('record')"
+    - "holding()"
+    - "impact()"
+
+  ejn01:
+    - "copy_field('_id','fSYS')"
+    - "meercat()"
+    - "marc_xml('fXML')"
+    - "remove_field('record')"
+    - "holding()"
+    - "impact()"

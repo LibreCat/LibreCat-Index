@@ -29,13 +29,13 @@
 	   <field name="_id" type="string" indexed="true" stored="false" multiValued="false"/>
 	   <field name="_bag" type="string" indexed="true" stored="false" multiValued="false"/>
 	   <field name="all" type="utf8text" indexed="true" stored="false" multiValued="true"/>
-	   <field name="author" type="utf8text" indexed="true" stored="true" multiValued="true"/>
+	   <field name="author" type="string" indexed="true" stored="true" multiValued="true"/>
 	   <field name="period" type="string" indexed="true" stored="true" multiValued="false"/>
        <field name="cid" type="string" indexed="true" stored="true" multiValued="false"/>
-	   <field name="collection" type="utf8text" indexed="true" stored="true" multiValued="false"/>
+	   <field name="collection" type="string" indexed="true" stored="true" multiValued="false"/>
 	   <field name="created" type="string" indexed="true" stored="true" multiValued="true"/>
-	   <field name="department" type="utf8text" indexed="true" stored="true" multiValued="true"/>
-	   <field name="faculty" type="utf8text" indexed="true" stored="true" multiValued="true"/>
+	   <field name="department" type="string" indexed="true" stored="true" multiValued="true"/>
+	   <field name="faculty" type="string" indexed="true" stored="true" multiValued="true"/>
 	   <field name="fDATE" type="string" indexed="true" stored="true" multiValued="false"/>
 	   <field name="fXML" type="string" indexed="false" stored="true" multiValued="false"/>
 	   <field name="fSYS" type="string" indexed="true" stored="true" multiValued="false"/>
@@ -47,14 +47,14 @@
 	   <field name="isbn" type="isxn" indexed="true" stored="true" multiValued="true"/>
 	   <field name="isxn" type="isxn" indexed="true" stored="true" multiValued="true"/>
 	   <field name="lang" type="string" indexed="true" stored="true" multiValued="false"/>
-	   <field name="library" type="utf8text" indexed="true" stored="true" multiValued="true"/>
+	   <field name="library" type="string" indexed="true" stored="true" multiValued="true"/>
 	   <field name="location" type="utf8text" indexed="true" stored="true" multiValued="true"/>
 	   <field name="region" type="string" indexed="true" stored="true" multiValued="true"/>
-	   <field name="perm" type="utf8text" indexed="true" stored="true" multiValued="false"/>
+	   <field name="perm" type="string" indexed="true" stored="true" multiValued="false"/>
 	   <field name="source" type="string" indexed="true" stored="true" multiValued="false"/>
 	   <field name="title" type="utf8text" indexed="true" stored="true" multiValued="false"/>
 	   <field name="title_sort" type="string" indexed="true" stored="false" multiValued="false"/>
-	   <field name="type" type="utf8text" indexed="true" stored="true" multiValued="false"/>
+	   <field name="type" type="string" indexed="true" stored="true" multiValued="false"/>
 	   <field name="year" type="string" indexed="true" stored="true" multiValued="false"/>
 	
 	   <dynamicField name="*01" type="string" indexed="true" stored="false" multiValued="false"/>

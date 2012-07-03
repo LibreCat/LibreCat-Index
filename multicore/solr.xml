@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <solr persistent="false">
-  <cores adminPath="/admin/cores">
-    <core name="rug01" instanceDir="rug01" />
-    <core name="rug02" instanceDir="rug02" />
-    <core name="rug03" instanceDir="rug03" />
-    <core name="bkt01" instanceDir="bkt01" />
-    <core name="ser01" instanceDir="ser01" />
-    <core name="ejn01" instanceDir="ejn01" />
-    <core name="ebk01" instanceDir="ebk01" />
-    <core name="dbs01" instanceDir="dbs01" />
-    <core name="pug01" instanceDir="pug01" />
-    <core name="proxy" instanceDir="proxy" />
+  <cores adminPath="/admin/cores" shareShema="true" defaultCoreName="proxy">
+    <core name="rug01" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="rug01/data"/>
+    <core name="rug02" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="rug02/data"/>
+    <core name="rug03" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="rug03/data"/>
+    <core name="bkt01" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="bkt01/data"/>
+    <core name="ser01" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="ser01/data"/>
+    <core name="ejn01" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="ejn01/data"/>
+    <core name="ebk01" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="ebk01/data"/>
+    <core name="dbs01" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="dbs01/data"/>
+    <core name="pug01" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="pug01/data"/>
+    <core name="proxy" instanceDir="." schema="schema.xml" config="proxyconfig.xml" dataDir="proxy/data"/>
   </cores>
 </solr>
