@@ -50,6 +50,41 @@ store:
   options:
     url: http://localhost:8983/solr/pug01
 
+ cgw01:
+  package: Solr
+  options:
+    url: http://localhost:8983/solr/cgw01
+
+ cgw02:
+  package: Solr
+  options:
+    url: http://localhost:8983/solr/cgw02
+
+ cgw03:
+  package: Solr
+  options:
+    url: http://localhost:8983/solr/cgw03
+
+ cgw04:
+  package: Solr
+  options:
+    url: http://localhost:8983/solr/cgw04
+
+ ath01:
+  package: Solr
+  options:
+    url: http://localhost:8983/solr/ath01
+
+ ovk01:
+  package: Solr
+  options:
+    url: http://localhost:8983/solr/ovk01
+
+ mem01:
+  package: Solr
+  options:
+    url: http://localhost:8983/solr/mem01
+
 exporter:
  default:
   package: YAML

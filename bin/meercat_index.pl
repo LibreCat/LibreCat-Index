@@ -32,7 +32,7 @@ GetOptions("store=s" => \$store,
            "nofix" => \$nofix,
            "test" => \$test,
            "clear" => \$clear,
-       "delete" => \$delete,
+           "delete" => \$delete,
            "v" => \$verbose);
 
 my $source = shift;

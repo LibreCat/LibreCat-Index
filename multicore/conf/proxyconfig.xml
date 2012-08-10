@@ -12,14 +12,25 @@
     <requestParsers enableRemoteStreaming="false" multipartUploadLimitInKB="2048" />
   </requestDispatcher>
   
-  <requestHandler name="standard" class="solr.StandardRequestHandler" default="true" />
   <requestHandler name="/update" class="solr.XmlUpdateRequestHandler" />
   <requestHandler name="/admin/" class="org.apache.solr.handler.admin.AdminHandlers" />
+  <requestHandler name="/select" class="solr.SearchHandler" default="true">
+    <lst name="defaults">
+      <str name="df">all</str>
+      <str name="defType">edismax</str>
+      <str name="qf">
+        all^0.5 title^10 author:^3
+      </str>
+      <str name="bq">
+        fulltext:1^2 
+      </str>
+    </lst>
+  </requestHandler>
 
-  <indexReaderFactory name="IndexReaderFactory" class="org.apache.solr.core.MultiCoreReaderFactory"></indexReaderFactory >
+  <indexReaderFactory name="IndexReaderFactory" class="org.apache.solr.core.MultiCoreReaderFactory"/>
       
   <!-- config for the admin interface --> 
   <admin>
-    <defaultQuery>solr</defaultQuery>
+    <defaultQuery>data</defaultQuery>
   </admin>
 </config>

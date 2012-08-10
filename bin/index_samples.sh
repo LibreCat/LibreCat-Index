@@ -1,11 +1,11 @@
 #!/bin/bash
 
-./meercat_index.pl -v --clear rug01 ../multicore/exampledocs/rug01.sample
-./meercat_index.pl -v --clear rug02 ../multicore/exampledocs/rug02.sample
-./meercat_index.pl -v --clear rug03 ../multicore/exampledocs/rug03.sample
-./meercat_index.pl -v --clear dbs01 ../multicore/exampledocs/dbs01.sample
-./meercat_index.pl -v --clear bkt01 ../multicore/exampledocs/bkt01.sample
-./meercat_index.pl -v --clear ebk01 ../multicore/exampledocs/ebk01.sample
-./meercat_index.pl -v --clear pug01 ../multicore/exampledocs/pug01.sample
-./meercat_index.pl -v --clear ser01 ../multicore/exampledocs/ser01.sample
-./meercat_index.pl -v --clear ejn01 ../multicore/exampledocs/ejn01.sample
+echo -n "Start: "
+date
+
+for db in rug01 rug02 rug03 dbs01 bkt01 ebk01 pug01 ser01 ejn01 cgw01 cgw02 cgw03 cgw04 ath01 ovk01; do
+        zcat ../multicore/exampledocs/${db}.sample.gz | ./meercat_index.pl -v --clear ${db} -
+done
+
+echo -n" End: "
+date

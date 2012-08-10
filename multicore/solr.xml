@@ -10,6 +10,16 @@
     <core name="ebk01" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="ebk01/data"/>
     <core name="dbs01" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="dbs01/data"/>
     <core name="pug01" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="pug01/data"/>
+
+    <core name="cgw01" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="cgw01/data"/>
+    <core name="cgw02" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="cgw02/data"/>
+    <core name="cgw03" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="cgw03/data"/>
+    <core name="cgw04" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="cgw04/data"/>
+
+    <core name="ath01" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="ath01/data"/>
+    <core name="ovk01" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="ovk01/data"/>
+    <core name="mem01" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="mem01/data"/>
+
     <core name="proxy" instanceDir="." schema="schema.xml" config="proxyconfig.xml" dataDir="proxy/data"/>
   </cores>
 </solr>

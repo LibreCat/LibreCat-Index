@@ -70,6 +70,7 @@ sub _unique {
 
 sub _human {
     my $str = shift;
+    my $curryear   = [ localtime time]->[5] + 1900;
     my %h;
 
     foreach (split(" ",$str)) {
@@ -93,6 +94,9 @@ sub _human {
     }
 
     $human .= "$start - $prev";
+
+    $human =~ s{$curryear}{};
+
     return $human;
 }
 
@@ -134,6 +138,8 @@ sub default_holding {
 
     my $years = join(" ", @years);
     my $range = join("; ", @ranges);
+
+    $range =~ s{$curryear}{};
 
     print STDERR "record $identifier : failed to interpret '$holding'\n" if $range eq '';
 

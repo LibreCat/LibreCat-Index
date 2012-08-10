@@ -31,11 +31,17 @@ sub fix_index {
         }
         elsif ($tag eq '008') {
             $val =~ s{\^}{0}g;
-            $data->{year}   = substr($val,7,4);
-            $data->{period} = substr($val,7,2);
-            $data->{lang}   = substr($val,35,3);
+            my $year    = substr($val,7,4);
+            my $period  = substr($val,7,2);
+            my $lang    = substr($val,35,3);
+
+            $data->{year}   = $year;
+            $data->{period} = $period;
+            $data->{lang}   = $lang;
             delete $data->{year} if $data->{year} == 0;
             delete $data->{period} if $data->{period} == 0;
+
+            push @{$data->{all}} , $year if $year;
         }
         elsif ($tag eq '009') {
             $data->{collection} = $val;
