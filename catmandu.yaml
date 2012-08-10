@@ -3,7 +3,7 @@ store:
  default:
   package: Solr
   options:
-    url: http://localhost:8983/solr/rug01
+    url: http://localhost:8983/solr/proxy
  
  rug01:
   package: Solr

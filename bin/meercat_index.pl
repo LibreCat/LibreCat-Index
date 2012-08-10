@@ -54,11 +54,13 @@ if ($test) {
 else {
     store->delete_all if $clear;
 
-    if ($delete) {
-    importer->each(sub {
-       my $obj = $_[0];
-       store->delete($obj->{_id});
-    });
+    store->commit;
+
+    if ($delete) {  
+        importer->each(sub {
+            my $obj = $_[0];
+            store->delete($obj->{_id});
+        });
     }
     else {
         store->add_many(importer);
