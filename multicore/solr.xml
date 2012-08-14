@@ -20,6 +20,8 @@
     <core name="ovk01" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="ovk01/data"/>
     <core name="mem01" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="mem01/data"/>
 
+    <core name="pdf01" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="pdf01/data"/>
+
     <core name="proxy" instanceDir="." schema="schema.xml" config="proxyconfig.xml" dataDir="proxy/data"/>
   </cores>
 </solr>

@@ -29,6 +29,7 @@
 	   <field name="_id" type="string" indexed="true" stored="false" multiValued="false"/>
 	   <field name="_bag" type="string" indexed="true" stored="false" multiValued="false"/>
 	   <field name="all" type="utf8text" indexed="true" stored="false" multiValued="true"/>
+	   <field name="content" type="utf8text" indexed="true" stored="false" multiValued="false"/>
 	   <field name="author" type="string" indexed="true" stored="true" multiValued="true"/>
 	   <field name="period" type="string" indexed="true" stored="true" multiValued="false"/>
        <field name="cid" type="string" indexed="true" stored="true" multiValued="false"/>
@@ -66,9 +67,11 @@
 	   <dynamicField name="*07" type="string" indexed="true" stored="false" multiValued="false"/>
 	   <dynamicField name="*08" type="string" indexed="true" stored="false" multiValued="false"/>
 	   <dynamicField name="*09" type="string" indexed="true" stored="false" multiValued="false"/>
+
+	   <dynamicField name="ignored_*" type="string" indexed="true" stored="true" multiValued="false"/>
 	</fields>
 	
-	<uniqueKey>fSYS</uniqueKey>
+	<uniqueKey>_id</uniqueKey>
 	<defaultSearchField>all</defaultSearchField>
 	<solrQueryParser defaultOperator="AND"/>
 </schema>

@@ -85,6 +85,11 @@ store:
   options:
     url: http://localhost:8983/solr/mem01
 
+ pdf01:
+  package: Solr
+  options:
+    url: http://localhost:8983/solr/pdf01
+
 exporter:
  default:
   package: YAML
@@ -100,6 +105,9 @@ importer:
   options:
     type: XML
     id: '090'
+
+ json:
+  package: JSON
 
 fixes:
   default:

@@ -9,11 +9,22 @@
   <updateHandler class="solr.DirectUpdateHandler2" />
 
   <requestDispatcher handleSelect="true" >
-    <requestParsers enableRemoteStreaming="false" multipartUploadLimitInKB="2048" />
+    <requestParsers enableRemoteStreaming="false" multipartUploadLimitInKB="20480" />
   </requestDispatcher>
   
   <requestHandler name="standard" class="solr.StandardRequestHandler" default="true" />
   <requestHandler name="/update" class="solr.XmlUpdateRequestHandler" />
+  <requestHandler name="/update/extract" 
+                  startup="lazy"
+                  class="solr.extraction.ExtractingRequestHandler" >
+    <lst name="defaults">
+      <str name="fmap.content">content</str>
+      <str name="fmap.title">ignored_title</str>
+      <str name="uprefix">ignored_</str>
+      <str name="lowernames">false</str>
+      <str name="literalsOverride">true</str>
+    </lst>
+  </requestHandler>
   <requestHandler name="/admin/" class="org.apache.solr.handler.admin.AdminHandlers" />
       
   <!-- config for the admin interface --> 

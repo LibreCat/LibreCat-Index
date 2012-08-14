@@ -108,6 +108,17 @@ sub fix_index {
         elsif ($tag eq '856') {
             $val = join " ", data(undef,@sf);
             push @fulltext , $val;
+
+            my $link = join "", data('u',@sf);
+            my $path = join "", data('d',@sf);
+            my $file = join "", data('f',@sf);
+
+            if ($path && $file) {
+                $data->{content} = "$path/$file";
+            }
+            else {
+                $data->{content} = $link;
+            }
         }
         elsif ($tag eq '866' && $data->{source} eq 'ejn01') {
             $val = join " ", data('a',@sf);

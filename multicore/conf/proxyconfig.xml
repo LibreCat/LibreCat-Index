@@ -19,7 +19,7 @@
       <str name="df">all</str>
       <str name="defType">edismax</str>
       <str name="qf">
-        all^0.5 title^10 author:^3
+        content^0.1 all^0.5 title^10 author:^3
       </str>
       <str name="bq">
         fulltext:1^2 
