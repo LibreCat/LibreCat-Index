@@ -5,16 +5,8 @@
 # chkconfig: 345 95 25
 # description: meercat solr script
 #
-[ -f /etc/sysconfig/meercat ] &&  . /etc/sysconfig/meercat
-
-if [ "${CATMANDU_MEERCAT_DIR}" == "" ]; then 
-    echo "ERROR: no CATMANDU_MEERCAT_DIR defined"
-    exit 2
-fi
-
-if [ "${CATMANDU_MEERCAT_SOLR}" == "" ]; then
-    echo "ERROR: no CATMANDU_MEERCAT_SOLR defined"
-    exit 3
+if [ "${CATMANDU_MEERCAT_DIR}" == "" -o "${CATMANDU_MEERCAT_SOLR}" == "" ]; then 
+    [ -f /etc/sysconfig/meercat ] &&  . /etc/sysconfig/meercat
 fi
 
 if [ "${SOLR_STOP_PORT}" == "" ]; then
