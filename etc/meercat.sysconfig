@@ -1,5 +1,5 @@
-CATMANDU_MEERCAT_DIR=/opt/catmandu-meercat
-CATMANDU_MEERCAT_SOLR=/opt/catmandu-meercat-solr
+SOLR_HOME=/opt/catmandu-meercat/multicore
+SOLR_DIR=/opt/catmandu-meercat-solr
 SOLR_START_PORT=8983
 SOLR_STOP_PORT=8079
 SOLR_MEMORY=2048m

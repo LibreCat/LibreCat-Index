@@ -25,7 +25,7 @@ Distribution:   Meercat
 License:	Perl Artistic 2.0
 BuildArch:      noarch
 Prefix: 	/opt
-Source:		catmandu-meercat-1.0.tar.gz
+Source:		catmandu-meercat-${VERSION}.tar.gz
 
 %description
 Meercat Indexer
