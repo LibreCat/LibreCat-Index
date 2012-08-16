@@ -1,0 +1,72 @@
+#!/bin/bash
+#
+# meercat
+#
+# chkconfig: 345 95 25
+# description: meercat solr script
+#
+[ -f /etc/sysconfig/meercat ] &&  . /etc/sysconfig/meercat
+
+if [ "${CATMANDU_MEERCAT_DIR}" == "" ]; then 
+    echo "ERROR: no CATMANDU_MEERCAT_DIR defined"
+    exit 2
+fi
+
+if [ "${CATMANDU_MEERCAT_SOLR}" == "" ]; then
+    echo "ERROR: no CATMANDU_MEERCAT_SOLR defined"
+    exit 3
+fi
+
+if [ "${SOLR_STOP_PORT}" == "" ]; then
+    SOLR_STOP_PORT=8079
+fi
+
+if [ "${SOLR_START_PORT}" == "" ]; then
+    SOLR_START_PORT=8983
+fi
+
+if [ "${SOLR_MEMORY}" = "" ]; then
+    SOLR_MEMORY="128m"
+fi
+
+if [ "${SOLR_LOG}" = "" ]; then
+    SOLR_LOG=/dev/null
+fi
+
+echo "Catmandu Dir: ${CATMANDU_MEERCAT_DIR}"
+echo "Solr Dir: ${CATMANDU_MEERCAT_SOLR}"
+echo "Solr Port: ${SOLR_START_PORT} + ${SOLR_STOP_PORT}"
+echo "Solr Log: ${SOLR_LOG}"
+
+cd ${CATMANDU_MEERCAT_SOLR}
+
+JAVA_OPTIONS="-d64 -server -Xmx${SOLR_MEMORY} -XX:+AggressiveOpts -XX:NewRatio=5 -Dmeercat -Djetty.port=${SOLR_START_PORT} -DSTOP.PORT=${SOLR_STOP_PORT} -DSTOP.KEY=stopkey -Dsolr.solr.home=${CATMANDU_MEERCAT_DIR}/multicore -Djava.util.logging.config.file=etc/logging.properties -jar start.jar"
+JAVA="/usr/bin/java"
+
+case $1 in
+    start)
+        echo "Starting Solr"
+        cd ${CATMANDU_MEERCAT_SOLR}
+        $JAVA $JAVA_OPTIONS 2> ${SOLR_LOG} &
+        ;;
+    stop)
+        echo "Stopping Solr"
+        cd ${CATMANDU_MEERCAT_SOLR}
+        $JAVA $JAVA_OPTIONS --stop
+        ;;
+    log)
+        tail -f ${SOLR_LOG} 
+        ;;
+    status)
+        ps -ef | grep "[m]eercat"
+        ;;
+    restart)
+        $0 stop
+        sleep 1
+        $0 start
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart|status|log}" >&2
+        exit 1
+        ;;
+esac

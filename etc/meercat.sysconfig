@@ -1,0 +1,6 @@
+CATMANDU_MEERCAT_DIR=/opt/Catmandu-Meercat
+CATMANDU_MEERCAT_SOLR=/opt/Catmandu-Meercat-Solr
+SOLR_START_PORT=8983
+SOLR_STOP_PORT=8079
+SOLR_MEMORY=2048m
+SOLR_LOG=/var/log/meercat-solr.log

@@ -125,13 +125,19 @@ sub binary_import {
         unless (is_success($rc)) {
             warn "$rc - $obj->{content} mirror $filename";
             warn status_message($rc);
+            close($fh);
+            $fh = undef;
             return undef;
         }
 
         $obj->{content} = $filename;
     }
 
-    return undef unless -r $obj->{content};
+    unless (-r $obj->{content}) {
+       close($fh);
+       $fh = undef;
+       return undef;
+    }
 
     my $ua  = LWP::UserAgent->new;
     my $url = Catmandu->store($store)->url . "/update/extract" ;
@@ -149,11 +155,15 @@ sub binary_import {
              );
     };
     if ($@) {
+        close($fh);
+        $fh = undef;
         warn $@;
         return undef;
     }
 
     unless ($response->is_success) {
+        close($fh);
+        $fh = undef;
         warn $response->status_line;
         return undef;
     }
