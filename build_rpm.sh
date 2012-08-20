@@ -3,6 +3,13 @@
 VERSION=1.0
 RELEASE=1
 
+if [ "$1" == "clean" ]; then
+  rm ${HOME}/rpmbuild/SOURCES/catmandu-meercat-${VERSION}.tar.gz
+  rm catmandu-meercat-${VERSION}-${RELEASE}.noarch.rpm 
+  rm -rf ${HOME}/rpmbuild/BUILD/catmandu-meercat
+  exit 0
+fi
+
 rm ${HOME}/rpmbuild/SOURCES/catmandu-meercat-${VERSION}.tar.gz
 
 tar cvf ${HOME}/rpmbuild/SOURCES/catmandu-meercat-${VERSION}.tar.gz  --gzip \
