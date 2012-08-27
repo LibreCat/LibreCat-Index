@@ -114,28 +114,34 @@ sub binary_import {
     return undef unless $obj->{content};
 
     # Declare a local variable for temporary files (files get deleted when the vars go out of scope)
-    my ($fh,$filename);
+    my $fh;
 
     # Fetch a local copy of the remote file
     if ($obj->{content} =~ /^http(s)?:/) {
-        ($fh,$filename) = tempfile();
+	$fh = File::Temp->new(DIR => $tmpdir);
 
-        my $rc = getstore($obj->{content},$filename);
+        my $rc;
+
+	eval { $rc = getstore($obj->{content},$fh->filename) };
+
+        if ($@) {
+            warn "000 = $obj->{content} mirror $fh->filename";
+            undef $fh;
+	    return undef;
+	}
 
         unless (is_success($rc)) {
-            warn "$rc - $obj->{content} mirror $filename";
+            warn "$rc - $obj->{content} mirror $fh->filename";
             warn status_message($rc);
-            close($fh);
-            $fh = undef;
+            undef $fh;
             return undef;
         }
 
-        $obj->{content} = $filename;
+        $obj->{content} = $fh->filename;
     }
 
     unless (-r $obj->{content}) {
-       close($fh);
-       $fh = undef;
+       undef $fh;
        return undef;
     }
 
@@ -155,18 +161,19 @@ sub binary_import {
              );
     };
     if ($@) {
-        close($fh);
-        $fh = undef;
+        undef $fh;
         warn $@;
+        warn Dumper($obj);
         return undef;
     }
 
     unless ($response->is_success) {
-        close($fh);
-        $fh = undef;
+        undef $fh;
         warn $response->status_line;
         return undef;
     }
+
+    undef $fh;
 
     return 1;
 }
@@ -186,11 +193,11 @@ sub _obj_to_literal {
         }
         elsif (ref($value) eq 'ARRAY') {
             for (@$value) {
-                push(@$literal,"literal.$name" => $_);
+                push(@$literal,"literal.$name" => utf8::upgrade($_));
             }
         }
         else {
-            push(@$literal,"literal.$name" => $value);
+            push(@$literal,"literal.$name" => utf8::upgrade($value));
         }
     }
 
@@ -233,6 +240,7 @@ options:
     --delete
     --test
     --binary [experimental]
+    --tmpdir DIR
     --nofix
     --fix=<fix_file>
     --importer=<importer_name>

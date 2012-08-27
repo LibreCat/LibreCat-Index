@@ -17,18 +17,21 @@ if [ "${SOLR_START_PORT}" == "" ]; then
     SOLR_START_PORT=8983
 fi
 
-if [ "${SOLR_MEMORY}" = "" ]; then
-    SOLR_MEMORY="128m"
+if [ "${SOLR_MEMORY}" == "" ]; then
+    SOLR_MEMORY="2048m"
 fi
 
-if [ "${SOLR_LOG}" = "" ]; then
+if [ "${SOLR_LOG}" == "" ]; then
     SOLR_LOG=/dev/null
 fi
 
 echo "Solr Home: ${SOLR_HOME}"
 echo "Solr Dir: ${SOLR_DIR}"
+echo "Solr Memory: ${SOLR_MEMORY}"
 echo "Solr Port: ${SOLR_START_PORT} + ${SOLR_STOP_PORT}"
 echo "Solr Log: ${SOLR_LOG}"
+
+export JETTY_ARGS=/opt/catmandu-meercat-solr/etc/jetty-plus.xml
 
 JAVA_OPTIONS="-d64 -server -Xmx${SOLR_MEMORY} -XX:+AggressiveOpts -XX:NewRatio=5 -Dmeercat -Djetty.port=${SOLR_START_PORT} -DSTOP.PORT=${SOLR_STOP_PORT} -DSTOP.KEY=stopkey -Dsolr.solr.home=${SOLR_HOME} -jar start.jar"
 JAVA="/usr/bin/java"
