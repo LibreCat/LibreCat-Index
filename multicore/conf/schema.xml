@@ -30,7 +30,7 @@
 	   <field name="_bag" type="string" indexed="true" stored="false" multiValued="false"/>
 	   <field name="all" type="utf8text" indexed="true" stored="false" multiValued="true"/>
 	   <field name="content" type="utf8text" indexed="true" stored="false" multiValued="false"/>
-	   <field name="author" type="string" indexed="true" stored="true" multiValued="true"/>
+	   <field name="author" type="utf8text" indexed="true" stored="true" multiValued="true"/>
 	   <field name="period" type="string" indexed="true" stored="true" multiValued="false"/>
        <field name="cid" type="string" indexed="true" stored="true" multiValued="false"/>
 	   <field name="collection" type="string" indexed="true" stored="true" multiValued="false"/>

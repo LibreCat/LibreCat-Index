@@ -35,7 +35,7 @@ sub fix_index {
             my $period  = substr($val,7,2);
             my $lang    = substr($val,35,3);
 
-            $data->{year}   = $year;
+            $data->{year}   = $year if $year =~ /^\d{4}$/;
             $data->{period} = $period;
             $data->{lang}   = $lang;
             delete $data->{year} if $data->{year} == 0;
@@ -57,19 +57,19 @@ sub fix_index {
             push @{$data->{isxn}} , $val;
         }
         elsif ($tag eq '100') {
-            $val = join " ", data(undef,@sf);
+            $val = join " ", data("abd",@sf);
             push @{$data->{author}} , $val;
         }
         elsif ($tag eq '111') {
-            $val = join " ", data(undef,@sf);
+            $val = join " ", data("abd",@sf);
             push @{$data->{author}} , $val;
         }
         elsif ($tag eq '130') {
-            $val = join " ", data(undef,@sf);
+            $val = join " ", data("abd",@sf);
             push @{$data->{author}} , $val;
         }
         elsif ($tag eq '170') {
-            $val = join " ", data(undef,@sf);
+            $val = join " ", data("abd",@sf);
             push @{$data->{author}} , $val;
         }
         elsif ($tag eq '245') {
@@ -80,20 +80,25 @@ sub fix_index {
             $sort_title =~ s/\s+//g;
             $data->{title_sort} = $sort_title;
         }
+        elsif ($tag eq '650') {
+            my @region = data("z",@sf);
+            $val = $region[-1];
+            push @{$data->{region}} , $val;
+        }
         elsif ($tag eq '651') {
             $val = join " ", data("a",@sf);
             push @{$data->{region}} , $val;
         }
         elsif ($tag eq '700') {
-            $val = join " ", data(undef,@sf);
+            $val = join " ", data("abd",@sf);
             push @{$data->{author}} , $val;
         }
         elsif ($tag eq '710') {
-            $val = join " ", data(undef,@sf);
+            $val = join " ", data("abd",@sf);
             push @{$data->{author}} , $val;
         }
         elsif ($tag eq '720') {
-            $val = join " ", data(undef,@sf);
+            $val = join " ", data("abd",@sf);
             push @{$data->{author}} , $val;
         }
         elsif ($tag eq '852') {
