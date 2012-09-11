@@ -8,6 +8,7 @@
         		<tokenizer class="solr.PatternTokenizerFactory" pattern="[^\p{L}\p{N}]+"/>
         		<filter class="solr.LowerCaseFilterFactory"/>
         		<filter class="solr.ASCIIFoldingFilterFactory"/>
+                <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" format="solr" ignoreCase="false" expand="true" tokenizerFactory="solr.WhitespaceTokenizerFactory"/>
       		</analyzer>
       		<analyzer type="query">
         		<tokenizer class="solr.PatternTokenizerFactory" pattern="[^\p{L}\p{N}]+"/>
