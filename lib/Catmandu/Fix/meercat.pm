@@ -26,6 +26,13 @@ sub fix_index {
         my $val = $sf[1];
         
         if (0) {}
+        elsif ($tag eq '001') {
+            if ($val =~ m{((\w+):)?(\d+)}) {
+                $data->{source} = $2 if defined $2;
+                $data->{fSYS}   = $3 if defined $3;
+                $data->{$data->{source}} = $data->{fSYS};
+            }
+        }
         elsif ($tag eq '005') {
             $data->{fDATE} = $val;
         }
@@ -82,12 +89,16 @@ sub fix_index {
         }
         elsif ($tag eq '650') {
             my @region = data("z",@sf);
-            $val = $region[-1];
-            push @{$data->{region}} , $val;
+            push @{$data->{region}} , $region[-1];
+            $val = join " ", data(undef,@sf);
         }
         elsif ($tag eq '651') {
-            $val = join " ", data("a",@sf);
-            push @{$data->{region}} , $val;
+            my $region = join " ", data("a",@sf);
+            push @{$data->{region}} , $region;
+            $val = join " ", data(undef,@sf);
+        }
+        elsif ($tag =~ /^6../) {
+            $val = join " ", data(undef,@sf);
         }
         elsif ($tag eq '700') {
             $val = join " ", data("abd",@sf);
@@ -156,7 +167,7 @@ sub fix_index {
         
         push @{$data->{all}} , $val if $val;
     }
-    
+
     $data;
 }
 
