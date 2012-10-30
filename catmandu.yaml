@@ -70,25 +70,30 @@ store:
   options:
     url: http://localhost:8983/solr/cgw04
 
- ath01:
-  package: Solr
-  options:
-    url: http://localhost:8983/solr/ath01
-
- ovk01:
-  package: Solr
-  options:
-    url: http://localhost:8983/solr/ovk01
-
- mem01:
-  package: Solr
-  options:
-    url: http://localhost:8983/solr/mem01
-
  pdf01:
   package: Solr
   options:
     url: http://localhost:8983/solr/pdf01
+
+ hth01:
+  package: Solr
+  options:
+    url: http://localhost:8983/solr/hth01
+
+ gtb01:
+  package: Solr
+  options:
+    url: http://localhost:8983/solr/gtb01
+
+ dnl01:
+  package: Solr
+  options:
+    url: http://localhost:8983/solr/dnl01
+
+ aleph:
+  package: Solr
+  options:
+    url: http://aleph:8983/solr/proxy
 
 exporter:
  default:
@@ -114,6 +119,16 @@ fixes:
     - "copy_field('_id','fSYS')"
     - "meercat()"
     - "marc_xml('fXML')"
+    - "remove_field('record')"
+
+  rug02:
+    - "copy_field('_id','fSYS')"
+    - "meercat()"
+    - "marc_xml('fXML')"
+    - "remove_field('author')"
+    - "remove_field('title')"
+    - "remove_field('year')"
+    - "remove_field('lang')"
     - "remove_field('record')"
 
   ser01:

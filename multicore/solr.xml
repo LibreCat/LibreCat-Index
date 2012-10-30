@@ -16,10 +16,10 @@
     <core name="cgw03" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="cgw03/data"/>
     <core name="cgw04" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="cgw04/data"/>
 
-    <core name="ath01" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="ath01/data"/>
-    <core name="ovk01" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="ovk01/data"/>
-    <core name="mem01" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="mem01/data"/>
-
+    <core name="hth01" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="hth01/data"/>
+    <core name="gtb01" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="gtb01/data"/>
+    <core name="dnl01" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="dnl01/data"/>
+    
     <core name="pdf01" instanceDir="." schema="schema.xml" config="solrconfig.xml"  dataDir="pdf01/data"/>
 
     <core name="proxy" instanceDir="." schema="schema.xml" config="proxyconfig.xml" dataDir="proxy/data"/>

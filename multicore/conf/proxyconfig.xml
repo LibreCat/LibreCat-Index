@@ -18,11 +18,12 @@
     <lst name="defaults">
       <str name="df">all</str>
       <str name="defType">edismax</str>
+      <str name="echoParams">explicit</str>
       <str name="qf">
-        title^5 author:^25
+        isxn^1 year^1 all^1 content^0.1 title^15 author^5
       </str>
       <str name="bq">
-        fulltext:1^2 
+        (fulltext:1^4 source:rug01^2 source:ejn01^2 source:ser01^2 *:* AND NOT source:rug02)^999
       </str>
     </lst>
   </requestHandler>
