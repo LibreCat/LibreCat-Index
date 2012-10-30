@@ -26,6 +26,13 @@ sub fix_index {
         my $val = $sf[1];
         
         if (0) {}
+        elsif ($tag eq '001') {
+            if ($val =~ m{((\w+):)?(\d+)}) {
+                $data->{source} = $2 if defined $2;
+                $data->{fSYS}   = $3 if defined $3;
+                $data->{$data->{source}} = $data->{fSYS};
+            }
+        }
         elsif ($tag eq '005') {
             $data->{fDATE} = $val;
         }
