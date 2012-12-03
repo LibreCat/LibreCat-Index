@@ -1,10 +1,10 @@
-Catmandu-Meercat
+LibreCat-Index
 
  Catmandu style indexation of MARC sequential files into (multicore) Solr indexes.
 
 Installation:
 
- Copy the Catmandu-Meercat directory to your favorite local application directory: e.g. /usr/local or /opt
+ Copy the LibreCat-Index directory to your favorite local application directory: e.g. /usr/local or /opt
 
 Configuration:
 
