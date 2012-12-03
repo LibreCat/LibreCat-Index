@@ -1,0 +1,60 @@
+Catmandu-Meercat
+
+ Catmandu style indexation of MARC sequential files into (multicore) Solr indexes.
+
+Installation:
+
+ Copy the Catmandu-Meercat directory to your favorite local application directory: e.g. /usr/local or /opt
+
+Configuration:
+
+ catmandu.yml - defines the Solr cores available on your system and default fixes
+ lib/Catmandu/Fix/meercat.pm - mapping of MARC fields to Solr fields
+ lib/Catmandu/Fix/holding.pm - used at UGent to parse journal holding messages into a general holdings statement (e.g. journal X available from 1920 to 2000)
+ multicore - configuration and data directory for Solr cores
+
+Usage:
+
+  See the bin directory for indexation scripts
+
+  meercat_index.pl - used to index MARC (Aleph sequential ..configurable see Catmandu::MARC) files
+
+  # (re)index the rug01 export file
+  ./meercat_index.pl -v --clear rug01 /vol/indexes/incoming/rug01.export
+  
+  # update Solr with rug01 records
+  ./meercat_index.pl -v rug01 /vol/indexes/incoming/rug01.updates
+
+  # delete Solr with rug01 records
+  ./meercat_index.pl -v --delete rug01 /vol/indexes/incoming/rug01.deletes
+
+
+  meercat_search.pl - command line interface to search the Solr index
+
+  # execute a search
+  ./meercat_search.pl dna
+
+ 
+  marcxml_aleph.pl - convert a MARCXML file into Aleph sequential
+
+  
+  meercat - init.d script to stop/start a Solr daemon. The scripts reads it parameters from the SOLR environment variables or a /etc/sysconfig/meercat bash file
+
+  SOLR_DIR=Installation directory of Solr (the directory containing the start.jar file)
+  SOLR_HOME=Configuration directory of Solr (the directory containing the solr.xml file .. use the multicore directory in our example)
+  SOLR_LOG=Solr error log file
+  SOLR_START_PORT=Solr start port (default 8983)
+  SOLR_STOP_PORT=Solr stop port (default 8079)
+  SOLR_MEMORY=Solr allocated memory (default 2048m)
+ 
+
+License
+-=-=-=-
+
+LibreCat is an open collaboration. Currently the three Universites of Lund, Gent and Bielefeld provide freely available tools for library and research services. We believe that LibreCat is a valuable set of applications and we would like to ensure its continued development for future innovations in the field of digital libraries and research services. 
+
+The applications should be perceived as supplementary tools to serve your unique local need without loosing interoperability and standardisation already achieved. 
+
+LibreCat invites academic institutions with own development expertise to reuse and contribute. If you want to take an active part in LibreCat, please feel free to contact LibreCat Management. 
+
+LibreCat software published at https://github.com/LibreCat is free software without warranty, liabilities or support; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 or any later version. Every contributor is free to state her/his copyright.
